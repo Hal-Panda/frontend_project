@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 require("./assets/css/reset.css")
 require("./assets/css/fontIconcss/all.css")
 import mainGuide from "./components/common/mainGuide.vue"
@@ -21,6 +23,7 @@ export default {
     mainGuide
   }
 }
+
 </script>
 
 <style  lang="less">
@@ -28,4 +31,5 @@ html{
   background-color: white;
   font-size: 100vw/750 *50;
 }
+
 </style>
