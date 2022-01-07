@@ -9,7 +9,8 @@
 
 <script>
 require("./assets/css/reset.css")
-import mainGuide from "./views/mainGuide.vue"
+require("./assets/css/fontIconcss/all.css")
+import mainGuide from "./components/common/mainGuide.vue"
 export default {
   name: 'App',
   components: {
