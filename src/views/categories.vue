@@ -3,19 +3,24 @@
     <topBar>{{ title }}</topBar>
     <div class="xh_range">
       <div class="xh_centent">
-        2
+        <showCategories></showCategories>
       </div>
+      <blankPadding></blankPadding>
     </div>
   </div>
+  <mainGuide></mainGuide>
 </template>
 
 <script>
 import topBar from "../components/content/topBar";
+import mainGuide from "../components/common/mainGuide";
+import showCategories from "./Categories/showCategories";
+import blankPadding from "../components/content/blankPadding";
 
 export default {
   name: "categories",
   components: {
-    topBar
+    topBar, mainGuide, showCategories,blankPadding
   },
   data() {
     return {
@@ -28,12 +33,11 @@ export default {
 <style lang="less" scoped>
 .xh_categorues {
   .xh_range {
-    margin-top: 90rem/50;
-    height: 1143.6rem/50;
-    overflow: scroll;
-    .xh_centent {
-      height: 2000rem/50;
-      background-color: #ff6700;
+    margin-top: @TopTitleHeigh;
+    //height: @MainContantHeigh;
+    //overflow: scroll;
+    .xh_centent{
+
     }
   }
 }

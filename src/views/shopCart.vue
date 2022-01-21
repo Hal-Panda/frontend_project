@@ -3,20 +3,33 @@
     <topBar>{{ title }}</topBar>
     <div class="xh_range">
       <div class="xh_centent">
-        3
+<!--        <button @click="toLogin">toLogin</button>-->
+        <shopCartShow></shopCartShow>
       </div>
     </div>
   </div>
+  <mainGuide></mainGuide>
 </template>
 
 <script>
 import topBar from "../components/content/topBar";
+import mainGuide from "../components/common/mainGuide";
+import blankPadding from "../components/content/blankPadding";
+import shopCartShow from "./ShopCart/shopCartShow";
 
 export default {
   name: "shopCart",
   components:{
-    topBar
+    topBar,mainGuide,blankPadding,shopCartShow
   },
+  methods:{
+    // toLogin(){
+    //   this.$router.push('/login')
+    // }
+  },
+  created() {
+
+    },
   data(){
     return{
       title:"购物车",
@@ -28,13 +41,15 @@ export default {
 <style lang="less" scoped>
 .xh_shopCart{
   .xh_range {
-    margin-top: 90rem/50;
-    height: 1143.6rem/50;
-    overflow: scroll;
-
+    margin-top: @TopTitleHeigh;
+    //height: @MainContantHeigh;
+    overflow: hidden;
+    padding-bottom: 100px;
     .xh_centent {
-      height: 2000rem/50;
-      background-color: #ff6700;
+      position: relative;
+
+      //height: 2000vw*@Kuan;
+      //background-color: #ff6700;
     }
   }
 }

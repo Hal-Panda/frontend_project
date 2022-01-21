@@ -1,8 +1,18 @@
 import { createRouter, createWebHistory  } from 'vue-router'
-import home from "../views/home"
-import categories from "../views/categories";
-import shopCart from "../views/shopCart";
-import user from "../views/user";
+import store from '../store'
+import goodPage from "../components/content/goodPage";
+import test1 from "../components/content/test1";
+import test2 from "../components/content/test2";
+import SCG_right from "../views/Categories/SCG_right";
+const home = () => import("../views/home")
+const categories = () => import("../views/categories")
+const shopCart = () => import("../views/shopCart")
+const user = () => import("../views/user")
+const login = () => import("../components/common/login")
+// import categories from "../views/categories";
+// import shopCart from "../views/shopCart";
+// import user from "../views/user";
+// import login from "../views/login";
 
 const routes = [
 
@@ -14,7 +24,13 @@ const routes = [
   {
     path: '/categories',
     name: 'Categories',
-    component: categories
+    component: categories,
+    // children:[
+    //   {
+    //     path: ":id",
+    //     component: SCG_right,
+    //   },
+    // ]
   },
   {
     path: '/shopCart',
@@ -25,6 +41,30 @@ const routes = [
     path: '/user',
     name: 'User',
     component: user
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: login,
+    beforeEnter: (to, from, next) => {
+      store.commit('turnBR', from.fullPath);
+      next()
+    },
+    children:[
+      {
+        path: "test1",
+        component: test1,
+      },
+      {
+        path: "test2",
+        component: test2,
+      }
+    ]
+  },
+  {
+    path: '/goodPage/:id',
+    name: 'GoodPage',
+    component: goodPage
   },
   // {
   //   path: '/about',
@@ -39,6 +79,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+
 })
+
+// router.beforeEach((to,from,next) => {
+//   alert(to.path)
+//   alert(from.path)
+//   next()
+// })
 
 export default router
