@@ -1,14 +1,11 @@
 import { createRouter, createWebHistory  } from 'vue-router'
 import store from '../store'
-import goodPage from "../components/content/goodPage";
-import test1 from "../components/content/test1";
-import test2 from "../components/content/test2";
-import SCG_right from "../views/Categories/SCG_right";
 const home = () => import("../views/home")
 const categories = () => import("../views/categories")
 const shopCart = () => import("../views/shopCart")
 const user = () => import("../views/user")
-const login = () => import("../components/common/login")
+const showGood =() =>import("../views/Good/showGood")
+
 // import categories from "../views/categories";
 // import shopCart from "../views/shopCart";
 // import user from "../views/user";
@@ -25,12 +22,6 @@ const routes = [
     path: '/categories',
     name: 'Categories',
     component: categories,
-    // children:[
-    //   {
-    //     path: ":id",
-    //     component: SCG_right,
-    //   },
-    // ]
   },
   {
     path: '/shopCart',
@@ -43,29 +34,30 @@ const routes = [
     component: user
   },
   {
-    path: "/login",
-    name: "Login",
-    component: login,
-    beforeEnter: (to, from, next) => {
-      store.commit('turnBR', from.fullPath);
-      next()
-    },
-    children:[
-      {
-        path: "test1",
-        component: test1,
-      },
-      {
-        path: "test2",
-        component: test2,
-      }
-    ]
+    path: '/showGood/:id',
+    name: 'showGood',
+    component: showGood
   },
-  {
-    path: '/goodPage/:id',
-    name: 'GoodPage',
-    component: goodPage
-  },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   component: login,
+  //   beforeEnter: (to, from, next) => {
+  //     store.commit('turnBR', from.fullPath);
+  //     next()
+  //   },
+  //   children:[
+  //     {
+  //       path: "test1",
+  //       component: test1,
+  //     },
+  //     {
+  //       path: "test2",
+  //       component: test2,
+  //     }
+  //   ]
+  // },
+
   // {
   //   path: '/about',
   //   name: 'About',
@@ -79,7 +71,6 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-
 })
 
 // router.beforeEach((to,from,next) => {

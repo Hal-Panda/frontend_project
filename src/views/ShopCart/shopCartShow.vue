@@ -161,7 +161,7 @@ export default {
       padding-left: @Kuan*20vw;
       margin-top: @Gao*10vh;
 
-      font-size: @Gao*40vh;
+      font-size: @Gao*35vh;
       //line-height: @Gao*65vh;
       //background-color: #42b983;
       a {
@@ -171,9 +171,9 @@ export default {
     }
 
     .SCS_count {
-      position: relative;
-      top: @Gao*55vh;
-      left: @Kuan*200vw;
+      position: absolute;
+      top: 60%;
+      left: 70%;
       color: rgba(86, 86, 86, 0.78);
       z-index: 1;
 
@@ -181,8 +181,8 @@ export default {
         line-height: @Gao*80vh;
 
         span {
-          margin: 0 @Kuan*20vw;
-          font-size: @Kuan*40vw;
+          margin: 0 @Gao*20vh;
+          font-size: @Gao*40vh;
           position: relative;
           top: @Gao*3vh;
         }
@@ -196,12 +196,12 @@ export default {
       white-space: nowrap;
       top: @Gao*-70vh;
       left: @Kuan*20vw;
-      font-size: @Gao*50vh;
+      font-size: @Gao*45vh;
       color: rgba(255, 0, 0, 0.66);
 
       span {
         color: rgba(86, 86, 86, 0.78);
-        font-size: @Gao*30vh;
+        font-size: @Gao*25vh;
       }
     }
   }
@@ -242,14 +242,14 @@ export default {
   .SCB_money {
     font-size: @Gao*43vh;
     position: relative;
-    top: @Gao*24vh;
-    left: @Kuan*18vw;
+    top: @Gao*29vh;
+    left: @Kuan*28vw;
 
     span {
       font-size: @Gao*27vh;
       position: relative;
-      top: @Gao*9vh;
-      left: @Kuan*4vw;
+      top: @Gao*6vh;
+      //left: @Kuan*4vw;
     }
   }
 

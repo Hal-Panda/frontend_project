@@ -23,6 +23,7 @@ export default {
   z-index: 99;
   .text{
     color: white;
+    font-weight:700;
     font-size: @TopTitleHeigh/2;
     line-height: @TopTitleHeigh;
     text-align: center;

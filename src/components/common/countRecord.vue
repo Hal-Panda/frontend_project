@@ -34,7 +34,7 @@ export default {
   line-height:@Gao*80vh ;
   span{
     margin: 0 @Kuan*20vw;
-    font-size: @Kuan*40vw;
+    font-size: @Gao*40vh;
     position: relative;
     top:@Gao*3vh;
   }

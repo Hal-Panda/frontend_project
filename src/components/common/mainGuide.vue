@@ -7,26 +7,26 @@
     <div id="tab" class="tab"></div>
     <label for="first" >
       <router-link id="fir" class="g_rou" to="/">
-        <div class="fa fa-university icon"></div>
-        <div class="font">首页</div>
+        <div class="fa fa-university icon1"></div>
+        <div class="font1">首页</div>
       </router-link>
     </label>
     <label for="second">
       <router-link class="g_rou" to="/categories">
-        <div class="fa fa-bars icon"></div>
-        <div class="font">分类</div>
+        <div class="fa fa-bars icon2"></div>
+        <div class="font2">分类</div>
       </router-link>
     </label>
     <label for="third">
       <router-link class="g_rou" to="/shopCart">
-        <div class="fa fa-shopping-cart icon"></div>
-        <div class="font">购物车</div>
+        <div class="fa fa-shopping-cart icon3"></div>
+        <div class="font3">购物车</div>
       </router-link>
     </label>
     <label for="four">
       <router-link class="g_rou" to="/user">
-        <div class="fa fa-user icon"></div>
-        <div class="font">用户</div>
+        <div class="fa fa-user icon4"></div>
+        <div class="font4">用户</div>
       </router-link>
     </label>
   </div>
@@ -103,11 +103,10 @@ export default {
 </script>
 <style lang="less" scoped>
 @HEIGHT:@BottomGuideHeigh;
-@ICON_SIZE:@BottomGuideHeigh/2;
+@ICON_SIZE:@BottomGuideHeigh/2.4;
 @FONT_SIZE:@BottomGuideHeigh/5;
 @FONT_COLOR: #313131;
 @BACAKGROUD_COLOR: rgb(229, 229, 229);
-//@BACAKGROUD_COLOR: rgba(110, 103, 94, 0.13);
 @BLOCKC_COLOR:linear-gradient(45deg, #fc6076 0%, #ff9a44 100%);
 @RADIUS:@Gao*6vh;
 @BOX_SHADOW: 0 -@Gao*2vh @Gao*2vh rgba(0, 0, 0, 0.2);
@@ -133,24 +132,74 @@ export default {
     border-radius: @RADIUS;
     z-index: 9;
     //transition: .6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
   }
   background-color:@BACAKGROUD_COLOR;
   label {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); //取消默认选中的背景颜色
     display: block;
     //padding-top: 4rem/50;
-    padding-top:@FONT_SIZE/5;
     text-align: center;
     flex-grow: 1;
     z-index: 99;
     .g_rou {
       text-decoration: none;
       color: @FONT_COLOR;
-      .icon {
+      .icon1{
+        position: absolute;
+        top: @Gao*25vh;
+        left: 7%;
         font-size: @ICON_SIZE;
+        line-height:@ICON_SIZE ;
       }
-      .font {
+      .icon2{
+        position: absolute;
+        top: @Gao*25vh;
+        left: 31%;
+        font-size: @ICON_SIZE;
+        line-height:@ICON_SIZE ;
+      }
+      .icon3{
+        position: absolute;
+        top: @Gao*25vh;
+        left: 55%;
+        font-size: @ICON_SIZE;
+        line-height:@ICON_SIZE ;
+      }
+      .icon4{
+        position: absolute;
+        top: @Gao*25vh;
+        left: 83%;
+        font-size: @ICON_SIZE;
+        line-height:@ICON_SIZE ;
+      }
+      .font1{
+        position: absolute;
+        top: @Gao*40vh;
+        left: 14%;
         font-size: @FONT_SIZE;
+        line-height:@FONT_SIZE ;
+      }
+      .font2{
+        position: absolute;
+        top: @Gao*40vh;
+        left: 37%;
+        font-size: @FONT_SIZE;
+        line-height:@FONT_SIZE ;
+      }
+      .font3{
+        position: absolute;
+        top: @Gao*40vh;
+        left: 63%;
+        font-size: @FONT_SIZE;
+        line-height:@FONT_SIZE ;
+      }
+      .font4{
+        position: absolute;
+        top: @Gao*40vh;
+        left: 89%;
+        font-size: @FONT_SIZE;
+        line-height:@FONT_SIZE ;
       }
     }
   }

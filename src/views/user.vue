@@ -3,8 +3,9 @@
     <topBar>{{ title }}</topBar>
     <div class="xh_range">
       <div class="xh_centent">
-        <button @click="toLogin">toLogin</button>
-        <button class="lg_back" @click="showData">{{ $store.state.backRecord }}showValue</button>
+<!--        <button @click="toLogin">toLogin</button>-->
+<!--        <button class="lg_back" @click="showData">{{ $store.state.backRecord }}showValue</button>-->
+        <userShow></userShow>
       </div>
       <blankPadding></blankPadding>
     </div>
@@ -16,19 +17,20 @@
 import topBar from "../components/content/topBar";
 import mainGuide from "../components/common/mainGuide";
 import blankPadding from "../components/content/blankPadding";
+import userShow from "./User/userShow";
 
 export default {
   name: "user",
   components: {
-    topBar, mainGuide,blankPadding
+    topBar, mainGuide,blankPadding,userShow
   },
   methods: {
-    toLogin() {
-      this.$router.push('/login')
-    },
-    showData() {
-      alert(sessionStorage.getItem('xionghhhh'))
-    }
+    // toLogin() {
+    //   this.$router.push('/login')
+    // },
+    // showData() {
+    //   alert(sessionStorage.getItem('xionghhhh'))
+    // }
   },
   data() {
     return {
@@ -39,17 +41,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
-//@Gao:100/667;
-
 .xh_user {
-
   .xh_range {
     margin-top: @TopTitleHeigh;
+    overflow: hidden;
     //height: @MainContantHeigh;
     //overflow: scroll;
     .xh_centent {
-      height: 2000rem/50;
-      background-color: #ff6700;
+      //height: 2000rem/50;
+      //background-color: #ff6700;
     }
   }
 }

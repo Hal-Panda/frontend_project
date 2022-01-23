@@ -17,7 +17,7 @@ export default {
   name: "Goods",
   methods:{
     toShowGood(id){
-      this.$router.push('/goodPage'+id)
+      this.$router.push('/showGood'+id)
     }
   },
   computed: {
@@ -68,7 +68,7 @@ export default {
       height: @Gao*400vh;
     }
     .g_discribe{
-      font-size: @Kuan*30vw;
+      font-size: @Gao*30vh;
 
       height: @Gao*40vh;
       text-overflow:ellipsis;
@@ -78,29 +78,29 @@ export default {
     .g_price{
       span{
         color: black;
-        font-size: @Kuan*25vw;
+        font-size: @Gao*25vh;
       }
       text-overflow:ellipsis;
-      font-size: @Kuan*35vw;
+      font-size: @Gao*35vh;
       overflow: hidden;
       white-space: nowrap;
       color:  #ff6700;
       margin: @Kuan*5vw;
     }
     .g_like{
-      border-radius:@Kuan*12vw;
-      padding: @Kuan*5vw;
+      border-radius:@Gao*12vh;
+      padding: @Gao*5vh;
       background-color: #ff6700;
       position: absolute;
       top: @Gao*0.1vh;
       //left: @Kuan*4vw;
-      font-size: @Kuan*30vw;
+      font-size:@Gao*30vh;
       color: #ffffff;
       span{
         position: relative;
         top: @Gao*3.5vh;
         //left: 5rem/50;
-        font-size: @Kuan*35vw;
+        font-size: @Gao*35vh;
         line-height: @Gao*35vh;
         color: #ffffff;
       }

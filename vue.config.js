@@ -3,6 +3,7 @@ const resolve = dir => {
   return path.join(__dirname, dir)
 }
 
+
 module.exports={
   devServer:{
     port:9090,
@@ -25,6 +26,7 @@ module.exports={
         'network':'@/network',
         'views':'@/views',
       }
-    }
-  }
+    },
+  },
+
 }
