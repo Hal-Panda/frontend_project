@@ -93,7 +93,7 @@ export default {
       background-color: #ff6700;
       position: absolute;
       top: @Gao*0.1vh;
-      //left: @Kuan*4vw;
+      //left: @Gao*1vw;
       font-size:@Gao*30vh;
       color: #ffffff;
       span{

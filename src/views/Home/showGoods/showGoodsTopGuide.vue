@@ -38,7 +38,7 @@ export default {
   .SGT_link{
     color: black;
     padding: 13vw*@Kuan 0;
-    font-size: @Kuan*40vw;
+    font-size: @Gao*40vh;
     text-align: center;
     flex-grow: 1;
     background-color: @BACKGROUNDCOLOR_NORMAL;

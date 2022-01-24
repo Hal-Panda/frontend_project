@@ -67,10 +67,10 @@ export default {
     //top:@Gao*350vh;
     flex-grow: 1;
     text-align: center;
-    font-size: @Kuan*40vw;
-    line-height:@Kuan*80vw ;
+    font-size: @Gao*40vh;
+    line-height:@Gao*80vh ;
     span{
-      font-size: @Kuan*30vw;
+      font-size: @Gao*30vh;
     }
   }
 }

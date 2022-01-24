@@ -257,7 +257,7 @@ export default {
     background-color: rgba(255, 0, 0, 0.74);;
     position: absolute;
     top: @Gao*13vh;
-    left: @Kuan*550vw;
+    left: @Kuan*500vw;
     border-radius: @Gao*40vh;
     font-size: @Gao*30vh;
     padding: @Gao*15vh;

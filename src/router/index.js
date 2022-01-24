@@ -5,6 +5,7 @@ const categories = () => import("../views/categories")
 const shopCart = () => import("../views/shopCart")
 const user = () => import("../views/user")
 const showGood =() =>import("../views/Good/showGood")
+const login = () => import("../views/login/loginShow")
 
 // import categories from "../views/categories";
 // import shopCart from "../views/shopCart";
@@ -35,8 +36,13 @@ const routes = [
   },
   {
     path: '/showGood/:id',
-    name: 'showGood',
+    name: 'ShowGood',
     component: showGood
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: login
   },
   // {
   //   path: "/login",
@@ -58,14 +64,6 @@ const routes = [
   //   ]
   // },
 
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
 ]
 
 const router = createRouter({

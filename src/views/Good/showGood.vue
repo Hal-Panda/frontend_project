@@ -39,6 +39,13 @@
       </div>
 
     </div>
+    <SG_comment></SG_comment>
+    <div class="SG_detailImg">
+      <div class="SGD_title">商品详情</div>
+      <div class="SGDI"><img src="https://img.zcool.cn/community/015b9459f68a9da801202b0c9d8c3c.jpg@1280w_1l_0o_100sh.jpg" alt=""></div>
+    </div>
+    <SG_bottom></SG_bottom>
+    <blankPadding></blankPadding>
   </div>
 </template>
 
@@ -46,12 +53,14 @@
 import backTopBar from "../../components/common/backTopBar";
 import goodPictures from "./goodPictures";
 import SG_topInfo from "./SG_topInfo";
-
+import SG_comment from "./SG_comments";
+import SG_bottom from "./SG_bottom";
+import blankPadding from "../../components/content/blankPadding";
 
 export default {
   name: "showGood",
   components: {
-    backTopBar, goodPictures, SG_topInfo
+    backTopBar, goodPictures, SG_topInfo,SG_comment,SG_bottom,blankPadding
   },
   methods: {
     TOChooseOne(id,i,cla) {
@@ -127,6 +136,7 @@ export default {
 <style lang="less" scoped>
 .showGood {
   position: relative;
+  overflow: hidden;
   .SG_choose {
     border: @Gao*1vh solid rgba(187, 184, 184, 0.28);
     border-radius: @Gao*25vh;
@@ -173,6 +183,25 @@ export default {
           color: #4f4e4e;
         }
       }
+    }
+  };
+  .SG_detailImg{
+    border: @Gao*1vh solid rgba(187, 184, 184, 0.28);
+    border-radius: @Gao*25vh;
+    position: relative;
+    margin: @Gao*10vh @Kuan*10vw;
+
+    .SGD_title{
+      padding:@Gao*20vh @Kuan*25vw ;
+      font-size: @Gao*35vh;
+      font-weight: 700;
+    }
+    .SGDI{
+      img{
+        width: 100%;
+        //height: @Gao*400vh;
+      }
+
     }
   }
 }
