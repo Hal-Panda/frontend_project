@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" >
     <router-view/>
   </div>
 
@@ -15,37 +15,59 @@ import topBar from "./components/content/topBar.vue";
 export default {
   name: 'App',
   components: {
-    mainGuide
-  }
-}
+    mainGuide,
+  },
+  methods:{
 
+  }
+  // created() {
+  //   // 获取当前可视区域的高度
+  //   const height = document.documentElement.clientHeight;
+  //
+  //   }
+  // mounted() {
+  //   //首次进入的原始高度
+  //   // document.documentElement.clientHeight.toFixed("900");
+  //   alert(document.documentElement.clientHeight)
+  //   this.originalHeight = document.documentElement.clientHeight;
+  //   window.addEventListener('resize', this.watchResize);
+  // },
+  //
+  // beforeDestroy() {
+  //   window.removeEventListener("resize", this.watchResize);
+  // },
+  //
+  // watch: {
+  //   screenHeight(newHeight) { //监听屏幕高度变化
+  //     alert(document.documentElement.clientHeight)
+  //
+  //     // this.isShow = this.originalHeight <= newHeight;
+  //   }
+  // },
+  //
+  // methods: {
+  //   watchResize() {
+  //     //实时变化的窗口高度
+  //     // document.documentElement.clientHeight=667;
+  //     this.screenHeight = document.documentElement.clientHeight;
+  //   },
+  //
+  // },
+  //
+  // data(){
+  //   return {
+  //     originalHeight: 0, //原始高度
+  //     screenHeight: 0, //实时高度
+  //     isShow: true,
+  //   }
+  // }
+}
 </script>
 
 <style  lang="less">
 html{
 .app{
-  overflow: scroll;
-  height: @Gao*1334vh;
-  &::-webkit-scrollbar {
-    /*滚动条整体样式*/
-    display: none;
-  }
 
-  &::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    background: #9e9e9e;
-    box-shadow: inset 0 0 5px rgba(0, 122, 204);
-  }
-
-  //滚动条底层颜色!
-  &::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background: #b92b2b;
-
-    /*滚动条里面轨道*/
-    box-shadow: inset 0 0 5px rgba(182, 19, 19, 0.47);
-  }
 }
   background-color: white;
   font-size: 100vw/750 *50;

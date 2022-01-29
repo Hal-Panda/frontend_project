@@ -28,9 +28,9 @@ export default {
         url: '/categories/showPart' + '/' + newVal
       }).then(res => {
         // alert(this.$route.params.id)
-        this.categoreisContent = res.data;
+        this.categoreisContent = res;
       }).catch(err => {
-        alert(err);
+        console.log(err);
       })
     }
   },
@@ -39,9 +39,9 @@ export default {
       url: '/categories/showPart' + '/' + 1
     }).then(res => {
       // alert(this.$route.params.id)
-      this.categoreisContent = res.data;
+      this.categoreisContent = res;
     }).catch(err => {
-      alert(err);
+      console.log(err);
     })
   },
   data() {

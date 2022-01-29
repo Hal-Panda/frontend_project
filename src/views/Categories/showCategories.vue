@@ -1,66 +1,70 @@
 <template>
-<div class="showCategories">
-  <div class="SCG_left">
+  <div class="showCategories">
+    <div class="SCG_left">
 
-    <div v-for="item in categoreis"  @click="toTab(item['categoriesid'])" class="SCGL_list">
-      {{item['name']}}
+      <div v-for="item in categoreis" @click="toTab(item['categoriesid'])" class="SCGL_list">
+        {{ item['name'] }}
+      </div>
     </div>
+    <!--  <router-view></router-view>-->
+    <SCG_right v-bind:toChild="turnId"></SCG_right>
   </div>
-<!--  <router-view></router-view>-->
-  <SCG_right v-bind:toChild="turnId"></SCG_right>
-</div>
 </template>
 
 <script>
 import SCG_right from "./SCG_right";
 import {request} from "../../network/request";
+
 export default {
   name: "showCategories",
 
-  components:{
+  components: {
     SCG_right
   },
-  methods:{
-    toTab(id){
+  methods: {
+    toTab(id) {
       // this.$router.push('/categories'+'/'+id)
-      this.turnId=id;
+      this.turnId = id;
     }
   },
   created() {
+
     request({
-      url:'/categories/showAll'
-    }).then(res=>{
-      this.categoreis=res.data;
+      url: '/categories/showAll',
+    }).then(res => {
+      this.categoreis = res;
       // this.$router.push('/categories'+'/'+1)
-    }).catch(err=>{
-      alert(err);
+    }).catch(err => {
+      console.log(err);
     })
   },
-  data(){
-    return{
-      categoreis:[],
-      turnId:1,
+  data() {
+    return {
+      categoreis: [],
+      turnId: 1,
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.showCategories{
+.showCategories {
   position: relative;
 
-  .SCG_left{
+  .SCG_left {
     height: @Gao*1144vh;
     overflow: scroll;
     float: left;
     width: @Kuan*200vw;
     background: rgba(251, 252, 250, 0.52);
-    &::-webkit-scrollbar
-    {
+
+    &::-webkit-scrollbar {
       display: none;
     }
+
     box-shadow: @Kuan*1vw @Kuan*0vw @Kuan*7vw rgba(187, 184, 184, 0.88);
-    .SCGL_list{
+
+    .SCGL_list {
       text-align: center;
       font-size: @Kuan*35vw;
       line-height: @Kuan*100vw;
@@ -70,12 +74,6 @@ export default {
   }
 
 }
-
-
-
-
-
-
 
 
 //.SCG_left::-webkit-scrollbar

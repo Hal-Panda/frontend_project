@@ -92,18 +92,31 @@ export default {
   },
 
   name: "shopCartShow",
-  created() {
+  mounted() {
+    // request({
+    //   url: '/test'
+    // }).then(res => {
+    //   this.getVal = res.data;
+    //   for (let i = 0; i < this.getVal.length; i++) {
+    //     this.money[i] = this.getVal[i]['price'];
+    //     this.flat[i] = false;
+    //     this.counts[i] = this.getVal[i]['goodid']
+    //   }
+    // }).catch(err => {
+    //   alert(err);
+    // })
     request({
-      url: '/test'
+      url: '/test',
+      headers:{
+        token:localStorage.getItem("token")
+      },
     }).then(res => {
-      this.getVal = res.data;
-
+      this.getVal = res;
       for (let i = 0; i < this.getVal.length; i++) {
         this.money[i] = this.getVal[i]['price'];
         this.flat[i] = false;
         this.counts[i] = this.getVal[i]['goodid']
       }
-
     }).catch(err => {
       alert(err);
     })

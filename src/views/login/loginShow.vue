@@ -10,7 +10,7 @@
           <label for="pass">密码</label><input id="pass" type="password" v-model="password">
         </div>
         <div class="LSP_login">
-          <label @click="login">登录</label>
+          <label class="LSP_label" @click="login">登录</label>
         </div>
       </div>
     </div>
@@ -19,6 +19,7 @@
 
 <script>
 import backTopBar from "../../components/common/backTopBar";
+import {request} from "../../network/request";
 
 export default {
   name: "loginShow",
@@ -26,9 +27,51 @@ export default {
     backTopBar
   },
   methods:{
+    killBlank(str){
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    },
+    turnWhite(){
+      let tab=document.getElementsByClassName('LSP_label');
+      tab[0].setAttribute('style', 'background-color: rgba(114, 113, 113, 0.01) !important');
+      tab[0].style.color="white";
+    },
     login(){
+      let tab=document.getElementsByClassName('LSP_label');
+      tab[0].setAttribute('style', 'background-color: white !important');
+      tab[0].style.color="#ff6700";
+      let getNum=this.killBlank(this.user);
+      let getPsw=this.killBlank(this.password);
+      setTimeout(this.turnWhite,500);
+      if (getNum.length<1){
+        alert("账号不能为空");
+        return;
+      }
+      if (getPsw.length<1){
+        alert("密码不能为空")
+        return;
+      }
+      request({
+        url:'/cuser/open/loginBP',
+        method:"post",
+        data:{
+          userId:getNum,
+          userPassword:getPsw,
+        },
+      }).then(res=>{
+        if (res['code']==200){
+          sessionStorage.setItem("token",res['data'])
+          this.$router.go(-1);
+        }
+        else if (res['code']==-200){
+          alert(res['msg']);
+        }
+        else {
+          alert("出错了，请重新登录")
+        }
+      }).catch(err=>{
+        console.log((err));
+      })
 
-      // alert('账号:'+this.user+"   "+"密码:"+this.password)
     }
   },
   data(){
@@ -111,13 +154,13 @@ export default {
           font-weight: 700;
           padding: @Gao*10vh @Kuan*10vw;
           border: @Gao*1vh solid white;
-          //background-color: rgba(114, 113, 113, 0.54);
+          //background-color: rgba(114, 113, 113, 0.01);
           border-radius: @Gao*30vh;
           color: white;
           transition: 1s;
           &:hover{
-            background-color: white;
-            color: #ff6700;
+            //background-color: white;
+            //color: #ff6700;
           }
         }
       }

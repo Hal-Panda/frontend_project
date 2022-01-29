@@ -15,6 +15,7 @@ export default {
       if (num==0){
         var SG = document.getElementsByClassName("SG_Sieve");
         SG[num].setAttribute('style', 'color:#ff6700 !important');
+        this.$emit("orderKey",this.orderKeyValues[0])
       }
 
       else if (num==1){
@@ -22,15 +23,18 @@ export default {
         SG[num].setAttribute('style', 'color:#ff6700 !important');
         if (this.logoClass=="fa fa-angle-up"){
           this.logoClass=this.logoClassDown;
+          this.$emit("orderKey",this.orderKeyValues[1])
         }
         else {
           this.logoClass=this.logoClassUp;
+          this.$emit("orderKey",this.orderKeyValues[2])
         }
       }
 
       else if (num=2){
         var SG = document.getElementsByClassName("SG_Sieve");
         SG[num].setAttribute('style', 'color:#ff6700 !important');
+        this.$emit("orderKey",this.orderKeyValues[3])
       }
     },
     turnBlack(){
@@ -49,6 +53,7 @@ export default {
       logoClass:"fa fa-angle-up",
       logoClassUp:"fa fa-angle-up",
       logoClassDown:"fa fa-angle-down",
+      orderKeyValues:["likeNumber desc","mainGoodPrice","mainGoodPrice desc","sellCount desc"],
     }
   },
 }
@@ -57,7 +62,8 @@ export default {
 <style lang="less" scoped>
 .showGoodsSieve{
   position: sticky;
-  top:@TopTitleHeigh;
+  //top:@TopTitleHeigh;
+  top: 0;
   background-color:white;
   //top:@Gao*150vh;
   //width: 100%;

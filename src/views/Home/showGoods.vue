@@ -1,8 +1,11 @@
 <template>
   <div class="showGoods">
     <showGoodsTopGuide></showGoodsTopGuide>
-    <showGoodsSieve></showGoodsSieve>
+<!--    <showGoodsSieve></showGoodsSieve>-->
     <Goods></Goods>
+
+
+
   </div>
 </template>
 
@@ -12,6 +15,7 @@ import {request} from "../../network/request";
 import showGoodsTopGuide from "./showGoods/showGoodsTopGuide";
 import showGoodsSieve from "./showGoods/showGoodsSieve";
 import Goods from "./showGoods/Goods";
+
 export default {
   name: "showGoods",
   components:{

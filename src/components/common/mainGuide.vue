@@ -111,6 +111,7 @@ export default {
 @RADIUS:@Gao*6vh;
 @BOX_SHADOW: 0 -@Gao*2vh @Gao*2vh rgba(0, 0, 0, 0.2);
 .xh_mainGuide {
+  transition: 1s;
   z-index: 9;
   display: flex;
   position: fixed;
