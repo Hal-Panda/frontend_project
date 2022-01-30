@@ -1,7 +1,7 @@
 <template>
   <showGoodsSieve v-on:orderKey="changeOrderKey"></showGoodsSieve>
   <div class="goods" @scroll="showBottom($event)" ref="scroll">
-    <a v-for="(item,index) in goodsDatas" @click="toShowGood(item['maingoodid'])" v-bind:class="'good'">
+    <a v-for="(item,index) in goodsDatas" @click="toShowGood(item['id'])" class="good">
       <img v-bind:src="item['maingoodimg']" alt="">
       <div class="g_discribe">{{ item["maingoodtitle"] }}</div>
       <div class="g_price"><span>￥</span>{{ item["maingoodprice"] }}</div>
@@ -9,8 +9,9 @@
       <div class="g_sellCount">销量{{item['sellcount']}}</div>
     </a>
     <div v-show="loadFlat" class="g_load">{{ loadFont }}</div>
+    <blankPadding></blankPadding>
   </div>
-  <blankPadding></blankPadding>
+
 </template>
 
 <script>
@@ -23,7 +24,7 @@ export default {
   components: {blankPadding,showGoodsSieve},
   methods: {
     toShowGood(id) {
-      this.$router.push('/showGood' + id)
+      this.$router.push('/showGood/' + id)
     },
     // showBottom(){
     //   alert("到底了")
@@ -51,6 +52,8 @@ export default {
           pageNum: this.pageRecord,
           pageSize: 6,
           orderKeys:this.orderKey,
+          searchKeys:this.searchKey,
+          classifyCode:this.classifyKey,
         }
       }).then(res => {
         this.goodsDatas = this.goodsDatas.concat(res['data']);
@@ -63,8 +66,6 @@ export default {
         }
       }).catch(err => {
         alert(err);
-      }).finish(res => {
-
       })
     },
     changeOrderKey(data){
@@ -79,6 +80,8 @@ export default {
           pageNum: this.pageRecord,
           pageSize: 6,
           orderKeys:this.orderKey,
+          searchKeys:this.searchKey,
+          classifyCode:this.classifyKey,
         }
       }).then(res => {
         if (this.loadPoP) {
@@ -97,6 +100,16 @@ export default {
   mounted() {
 
   },
+  props:{
+    toSearchKey:{
+      type:String,
+      default:"",
+    },
+    toMyClashKey:{
+      type:String,
+      default: "",
+    }
+  },
   computed: {},
   created() {
     request({
@@ -105,6 +118,8 @@ export default {
         pageNum: this.pageRecord,
         pageSize: 6,
         orderKeys:this.orderKey,
+        searchKeys:this.searchKey,
+        classifyCode:this.classifyKey,
       }
     }).then(res => {
       if (this.loadPoP) {
@@ -112,6 +127,14 @@ export default {
         this.pageRecord = 2;
         this.loadPoP = false
         setTimeout(this.turnTrue, 600);
+        if (res['data'].length<1){
+          this.loadFont="没有搜寻到相关商品";
+          this.loadFlat=true;
+        }
+        if (res['data'].length<=4){
+          this.loadFont="已经搜寻完毕";
+          this.loadFlat=true;
+        }
       }
     }).catch(err => {
       alert(err);
@@ -125,6 +148,8 @@ export default {
       loadPoP: true,
       isLoadOver: false,
       loadFont: "加载中...",
+      searchKey:this.toSearchKey,
+      classifyKey:this.toMyClashKey,
 
       orderKey:"likeNumber desc",
     }
@@ -182,7 +207,6 @@ export default {
   }
 
   position: relative;
-  overflow: scroll;
 
   .good {
 
@@ -263,10 +287,12 @@ export default {
     line-height: 80vh*@Gao;
     font-size: 40vh*@Gao;
     color: #989898;
+    //background-color: black;
+    float: left;
+    width: 100%;
   }
 
 }
-
 .gb_centent {
   text-align: center;
 

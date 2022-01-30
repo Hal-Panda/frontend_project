@@ -1,18 +1,19 @@
 <template>
   <div class="SG_topInfo clearfix">
-    <div class="SGT_price"><span>￥</span>20394.00</div>
+    <div class="SGT_price"><span>￥</span>{{goodBaseInfo['goodprice']}}</div>
     <div class="SG_text">
-      <div class="SGT_titel">[有用的衣服有用]的衣服有用的衣服有 用的衣服有用的衣服有用的 衣服有用的衣服有用 的衣服有用的衣服有用的衣服</div>
-      <div class="SGT_describe"><span v-for="item in (1,3)">【特12别优惠】 </span></div>
+      <div class="SGT_titel">{{goodBaseInfo['goodname']}}</div>
+      <div class="SGT_describe"><span>{{goodBaseInfo['gooddescribe']}} </span></div>
     </div>
-    <div class="fa fa-star SGT_like"><span>9999+</span></div>
+    <div class="fa fa-star SGT_like"><span>{{goodMainInfo['likenumber']}}</span></div>
 
   </div>
 </template>
 
 <script>
 export default {
-  name: "SG_topInfo"
+  name: "SG_topInfo",
+  props: ['goodMainInfo','goodBaseInfo'],
 }
 </script>
 

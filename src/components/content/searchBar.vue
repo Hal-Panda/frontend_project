@@ -2,8 +2,8 @@
 <div class="searchBar">
   <div class="fa fa-search searchIcon"></div>
   <div class="searchPart">
-    <input id="SBP" type="text">
-    <label for="SBP" class="fa fa-search searchIconIn" @click="searchGoods"></label>
+    <input id="SBP" type="text" v-model="searchContent">
+    <label for="SBP" class="fa fa-search searchIconIn" @click="searchGoods" @keydown.alt.enter="searchGoods" ></label>
   </div>
 </div>
 
@@ -14,11 +14,14 @@ export default {
   name: "searchBar",
   methods:{
     searchGoods(){
-      // let tab=document.getElementsByClassName('searchPart');
-      // // tab[i].setAttribute('style', 'color: white !important');
-      // tab[0].style.top=0;
+      this.$router.push({name:"showSearchByTitle",params:{searchKey:this.searchContent}})
     }
   },
+  data(){
+    return{
+      searchContent:"",
+    }
+  }
 }
 
 </script>
@@ -47,7 +50,7 @@ export default {
     //top: 0;
     height: 100vh*@Gao;
     width: 750vw*@Kuan;
-    transition: 1500ms;
+    transition: 1s;
     background-color: #eeeeee;
     .searchIconIn{
       color: white;

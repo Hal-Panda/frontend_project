@@ -27,7 +27,6 @@ export default {
     font-size: @TopTitleHeigh/2;
     line-height: @TopTitleHeigh;
     text-align: center;
-    //margin-left: @Kuan*50vw;
   }
 }
 

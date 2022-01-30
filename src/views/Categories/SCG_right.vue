@@ -1,9 +1,9 @@
 <template>
   <div class="SCG_right">
     <div v-for="item in categoreisContent" class="SCGR_list">
-      <div class="SCGR_Part" v-on:click="toGood(item['togood'])">
-        <img v-bind:src="item['imgaddress']" alt="">
-        <div>{{ item['name'] }}</div>
+      <div class="SCGR_Part" v-on:click="toGood(item)">
+        <img v-bind:src="item['classifyimg']" alt="">
+        <div>{{ item['classifyname'] }}</div>
       </div>
     </div>
 
@@ -18,17 +18,20 @@ export default {
   props:
     ['toChild'],
   methods:{
-    toGood(id){
-      alert(id)
+    toGood(item){
+      this.$router.push({name:"showSearchByClassify",params:{classKey:item['todocode'],classifyName:item['classifyname']}})
     }
   },
   watch:{
     toChild(newVal, oldVal) {
       request({
-        url: '/categories/showPart' + '/' + newVal
+        url: '/classify/getInfo',
+        params:{
+          classifyLevel: newVal
+        }
       }).then(res => {
         // alert(this.$route.params.id)
-        this.categoreisContent = res;
+        this.categoreisContent = res['data'];
       }).catch(err => {
         console.log(err);
       })
@@ -36,10 +39,13 @@ export default {
   },
   created() {
     request({
-      url: '/categories/showPart' + '/' + 1
+      url: '/classify/getInfo',
+      params:{
+        classifyLevel: 2
+      }
     }).then(res => {
       // alert(this.$route.params.id)
-      this.categoreisContent = res;
+      this.categoreisContent = res['data'];
     }).catch(err => {
       console.log(err);
     })

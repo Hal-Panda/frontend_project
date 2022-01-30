@@ -2,8 +2,8 @@
   <div class="showCategories">
     <div class="SCG_left">
 
-      <div v-for="item in categoreis" @click="toTab(item['categoriesid'])" class="SCGL_list">
-        {{ item['name'] }}
+      <div v-for="item in categoreis" @click="toTab(item['nextnode'])" class="SCGL_list">
+        {{ item['classifyname'] }}
       </div>
     </div>
     <!--  <router-view></router-view>-->
@@ -23,16 +23,19 @@ export default {
   },
   methods: {
     toTab(id) {
-      // this.$router.push('/categories'+'/'+id)
+      this.$router.push('/categories'+'/right/'+id)
       this.turnId = id;
     }
   },
   created() {
 
     request({
-      url: '/categories/showAll',
+      url: '/classify/getInfo',
+      params:{
+        classifyLevel:"1",
+      }
     }).then(res => {
-      this.categoreis = res;
+      this.categoreis = res['data'];
       // this.$router.push('/categories'+'/'+1)
     }).catch(err => {
       console.log(err);

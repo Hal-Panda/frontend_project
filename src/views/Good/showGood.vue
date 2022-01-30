@@ -1,8 +1,8 @@
 <template>
   <div class="showGood">
-    <backTopBar>商品展示</backTopBar>
+    <backTopBar>{{ GetInfBasePart['goodname'] }}</backTopBar>
     <goodPictures v-bind:goodId=getGoodId></goodPictures>
-    <SG_topInfo></SG_topInfo>
+    <SG_topInfo v-bind:goodMainInfo=GetInfoMainPart v-bind:goodBaseInfo=GetInfBasePart></SG_topInfo>
     <div class="SG_choose">
 
       <div v-if="sg_flatOne==1" class="SGC_One">
@@ -56,6 +56,7 @@ import SG_topInfo from "./SG_topInfo";
 import SG_comment from "./SG_comments";
 import SG_bottom from "./SG_bottom";
 import blankPadding from "../../components/content/blankPadding";
+import {request} from "../../network/request";
 
 export default {
   name: "showGood",
@@ -97,13 +98,24 @@ export default {
   },
   created() {
 
+    request({
+      url: '/show/mainGood/'+this.$route.params.id,
+    }).then(res => {
+      // this.categoreis = res['data'];
+      // this.$router.push('/categories'+'/'+1)
+      this.GetInfoMainPart=res['data'][0];
+      this.GetInfBasePart=res['data'][1];
+    }).catch(err => {
+      console.log(err);
+    })
   },
   data() {
     return {
       getGoodId: [
         {name: 1, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
         {name: 2, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
-        {name: 3, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"}],
+        {name: 3, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
+      ],
       getChoseInfo: {
         name: '颜色',
         fdata: [{id: '3333', key: '黑色'}, {id: '1111', key: '红色'}, {id: '2222', key: '白色'}, {
@@ -129,6 +141,9 @@ export default {
       },
       sg_flatOne: 1,
       sg_flatTwo: 0,
+
+      GetInfoMainPart:{},
+      GetInfBasePart:{},
     }
   }
 }
