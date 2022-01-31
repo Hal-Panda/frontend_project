@@ -1,16 +1,16 @@
 <template>
-<div class="SG_comments">
+<div class="SG_comments clearfix">
   <div class="SGC_title">
     商品评论
   </div>
   <div class="SGC_more" @click="showHiden">查看更多>></div>
-  <div v-for="item in (1,3)" class="SGC_comment">
+  <div v-for="item in commentsData.slice(0,3)" class="SGC_comment">
     <div class="SGCC_info clearfix">
-      <div class="SGCCI_icon"><img src="https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto" alt=""></div>
-      <div class="SGCCI_name">打工族</div>
+      <div class="SGCCI_icon"><img v-bind:src="item['usericon']" alt=""></div>
+      <div class="SGCCI_name">{{item['username']  }}</div>
     </div>
     <div class="SGCC_content">
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从前有座山，山里有座庙，庙里有个老和尚,从前有座山，山里有座庙，庙里有个老和尚.
+      &nbsp;&nbsp;{{item['content']}}
     </div>
   </div>
 
@@ -19,13 +19,13 @@
       商品评论
     </div>
     <div class="SGC_close" @click="closeHiden">关闭</div>
-    <div v-for="item in (1,10)" class="SGC_comment">
+    <div v-for="item in commentsData" class="SGC_comment">
       <div class="SGCC_info clearfix">
-        <div class="SGCCI_icon"><img src="https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto" alt=""></div>
-        <div class="SGCCI_nameT">打工族</div>
+        <div class="SGCCI_icon"><img v-bind:src="item['usericon']" alt=""></div>
+        <div class="SGCCI_nameT">{{item['username']  }}</div>
       </div>
       <div class="SGCC_content">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从前有座山，山里有座庙，庙里有个老和尚,从前有座山，山里有座庙，庙里有个老和尚.
+        &nbsp;&nbsp;&nbsp;{{item['content']}}
       </div>
     </div>
 
@@ -36,6 +36,7 @@
 <script>
 export default {
   name: "SG_comments",
+  props: ['commentsData'],
   methods:{
     showHiden(){
       let tab=document.getElementsByClassName("SGC_hidInfo");

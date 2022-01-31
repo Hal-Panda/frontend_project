@@ -11,8 +11,8 @@
             @slideChange="onSlideChange"
     >
 
-      <swiper-slide  v-for="item in goodId">
-          <img  v-bind:src="item['add']" >
+      <swiper-slide  v-for="item in imgsData">
+          <img  v-bind:src="item['imgaddress']" >
       </swiper-slide>
     </swiper>
   </div>
@@ -36,7 +36,7 @@ export default {
     Swiper,
     SwiperSlide,
   },
-  props: ['goodId'],
+  props: ['imgsData'],
   setup() {
     SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
     const onSwiper = (swiper) => {
