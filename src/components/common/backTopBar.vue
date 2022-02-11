@@ -22,6 +22,7 @@ export default {
 
 
   .BT_back{
+
     font-size: @Gao*50vh;
     line-height:@TopTitleHeigh ;
     //background-color: #f6dd62;

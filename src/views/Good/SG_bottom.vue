@@ -1,34 +1,179 @@
 <template>
   <div class="SG_bottom">
-    <div class="fa fa-star SGB_like" @click="turnRed">点赞</div>
-    <div class="SGB_cart">加入购物车</div>
-    <div class="SGB_shop">去购买&nbsp;</div>
+    <div class="fa fa-star SGB_like" @click="turnRed(true)">点赞</div>
+    <div class="SGB_cart" @click="addShopCart">加入购物车</div>
+    <div class="SGB_shop" @click="commitOrder">去购买&nbsp;</div>
   </div>
 </template>
 
 <script>
+import {request} from "../../network/request";
+import router from "../../router";
+
 export default {
   name: "SG_bottom",
-  methods:{
-    turnRed(){
-      let tab=document.getElementsByClassName("SGB_like");
-      // tab[0].setAttribute('style', 'top: 1334vh*@Gao !important');
-      if (this.likeFlat==0){
-        this.likeFlat=1;
-        tab[0].style.color="#ff6700";
-        tab[0].style.borderColor="#ff6700";
+  methods: {
+    commitOrder(){
+      request({
+        url: '/cuser/enterVoid',
+      }).then(res => {
+        if (res['code']==100){
+          this.goodList[0]=[this.goodBaseInfo['goodid'],1,this.goodMainInfo['maingoodimg']];
+          router.push({
+            path:"/commitOrder",
+            query:{
+              buyList: this.goodList,
+            }
+          });
+        }
+
+      }).catch(err => {
+        console.log(err);
+      })
+
+
+    },
+    addShopCart(){
+      request({
+        url: '/shopCart/addGood',
+        method: "post",
+        data:{
+          goodId:this.goodBaseInfo['goodid'],
+          goodPrice:this.goodBaseInfo['goodprice'],
+          goodName:this.goodBaseInfo['goodname'],
+          goodImgId:this.goodBaseInfo['detailsimgid'],
+          goodMainId:this.goodMainInfo['sellgoodsid']
+        },
+        headers:{
+          token:sessionStorage.getItem("token")
+        },
+      }).then(res => {
+          // alert()
+
+        if (res['data']==1){
+         if (confirm(res['msg']+",是否跳转购物车")) {
+           router.push("/shopCart");
+         }
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    turnRed(clickFlat) {
+      if (this.loginFlat) {
+        let tab = document.getElementsByClassName("SGB_like");
+        // tab[0].setAttribute('style', 'top: 1334vh*@Gao !important');
+        if (this.likeFlat == 0) {
+          if (clickFlat){
+            request({
+              url: '/cuser/addLike',
+              params: {
+                sellGoodId: this.goodMainInfo['sellgoodsid']
+              }
+            }).then(res => {
+              if (res['data'] == 1) {
+                this.$emit("likeChange",1)
+                this.likeFlat = 1;
+                tab[0].style.color = "#ff6700";
+                tab[0].style.borderColor = "#ff6700";
+              } else {
+                alert("异常错误，请重试")
+              }
+            }).catch(err => {
+              console.log(err);
+            })
+          }
+          else {
+            this.likeFlat = 1;
+            tab[0].style.color = "#ff6700";
+            tab[0].style.borderColor = "#ff6700";
+          }
+
+        } else if (this.likeFlat == 1) {
+          if (clickFlat) {
+            request({
+              url: '/cuser/reduceLike',
+              params: {
+                sellGoodId: this.goodMainInfo['sellgoodsid']
+              }
+            }).then(res => {
+              if (res['data'] == 1) {
+                this.$emit("likeChange",0)
+                this.likeFlat = 0;
+                tab[0].style.color = "#9e9e9e";
+                tab[0].style.borderColor = "#9e9e9e";
+              } else {
+                alert("异常错误，请重试")
+              }
+            }).catch(err => {
+              console.log(err);
+            })
+          } else {
+            this.likeFlat = 0;
+            tab[0].style.color = "#9e9e9e";
+            tab[0].style.borderColor = "#9e9e9e";
+          }
+        } else {
+          alert("异常错误，请重试")
+        }
+
+      } else {
+        request({
+          url: '/cuser/getUserLikeInfo',
+          params: {
+            sellGoodId: this.goodMainInfo['sellgoodsid']
+          }
+        }).then(res => {
+          this.likeFlat = res['data'];
+          this.loginFlat = true;
+          this.turnRed();
+        }).catch(err => {
+          console.log(err);
+        })
       }
-      else if (this.likeFlat==1){
-        this.likeFlat=0;
-        tab[0].style.color="#9e9e9e";
-        tab[0].style.borderColor="#9e9e9e";
-      }
+
+
+      // request({
+      //   url: '/show/goodDescribeImg',
+      //   params: {
+      //     goodDescribeImgId: this.GetInfBasePart['detailsimgid']
+      //   }
+      // }).then(res => {
+      //   this.goodDescribeImgsData = res['data']
+      // }).catch(err => {
+      //   console.log(err);
+      // })
+
 
     }
   },
-  data(){
-    return{
-      likeFlat:0,
+  mounted() {
+    if (sessionStorage.getItem("token") != "" && sessionStorage.getItem("token") != null) {
+      // alert(1)
+      // alert(this.goodMainInfo['sellgoodsid'])
+      request({
+        url: '/cuser/getUserLikeInfo',
+        params: {
+          sellGoodId: this.goodMainInfo['sellgoodsid']
+        }
+      }).then(res => {
+        this.likeFlat = res['data'];
+        this.loginFlat = true;
+        this.turnRed(false);
+
+      }).catch(err => {
+        console.log(err);
+      })
+    }
+
+
+  },
+  props: ['goodMainInfo', 'goodBaseInfo'],
+  data() {
+    return {
+      likeFlat: 0,
+      loginFlat: false,
+      goodList:[],
     }
   }
 }
@@ -47,7 +192,8 @@ export default {
   z-index: 9;
 
   display: flex;
-  .SGB_like{
+
+  .SGB_like {
     flex-grow: 1;
     border: #9e9e9e 1vh*@Gao solid;
     //background-color: rgba(255, 0, 0, 0.74);
@@ -63,7 +209,8 @@ export default {
     line-height: @Gao*80vh;
     margin: @Gao*10vh @Kuan*20vw;
   }
-  .SGB_cart{
+
+  .SGB_cart {
     flex-grow: 3;
     background-color: rgba(255, 255, 255, 0.87);
     border: #ff6700 1vh*@Gao solid;
@@ -78,6 +225,7 @@ export default {
     line-height: @Gao*76vh;
     margin: @Gao*12vh @Kuan*20vw @Gao*12vh  @Kuan*60vw;
   }
+
   .SGB_shop {
     flex-grow: 3;
     border: #ffffff 2vh*@Gao solid;

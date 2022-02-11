@@ -16,6 +16,12 @@ export default {
       this.turnBlack();
       var SG = document.getElementsByClassName("SGT_link");
       SG[num].setAttribute('style', 'color:#ff6700 !important');
+      if (num==1){
+        alert("功能暂未开放")
+      }
+      else if (num==2){
+        alert("功能暂未开放")
+      }
     },
     turnBlack(){
       var SG = document.getElementsByClassName("SGT_link");

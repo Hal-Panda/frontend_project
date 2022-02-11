@@ -1,8 +1,8 @@
 <template>
 <div class="showSearchByClassify">
-  <backTopBar>{{ this.$route.params.classifyName}}</backTopBar>
+  <backTopBar>{{classifyName}}</backTopBar>
 
-  <Goods v-bind:toMyClashKey="this.$route.params.classKey"></Goods>
+  <Goods v-bind:toMyClashKey="classifyKey"></Goods>
 </div>
 </template>
 
@@ -14,6 +14,16 @@ export default {
   name: "showSearchByClassify",
   components: {
     Goods, backTopBar,
+  },
+  created() {
+    this.classifyKey=sessionStorage.getItem("RecordSearchClassifyKey");
+    this.classifyName=sessionStorage.getItem("RecordSearchClassifyName");
+  },
+  data(){
+    return{
+      classifyKey:"",
+      classifyName:"",
+    }
   },
 }
 </script>

@@ -19,7 +19,10 @@ export default {
     ['toChild'],
   methods:{
     toGood(item){
-      this.$router.push({name:"showSearchByClassify",params:{classKey:item['todocode'],classifyName:item['classifyname']}})
+      sessionStorage.setItem("RecordSearchClassifyKey",item['todocode']);
+      sessionStorage.setItem("RecordSearchClassifyName",item['classifyname']);
+      // this.$router.push({name:"showSearchByClassify",params:{classKey:item['todocode'],classifyName:item['classifyname']}})
+      this.$router.push({name:"showSearchByClassify"})
     }
   },
   watch:{

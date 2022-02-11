@@ -46,7 +46,7 @@
       <div class="SGDI" v-for="item in goodDescribeImgsData"><img
         v-bind:src="item['imgaddress']" alt=""></div>
     </div>
-    <SG_bottom></SG_bottom>
+    <SG_bottom v-on:likeChange="likeGetChange" v-if="GetInfoMainPart['sellgoodsid']" v-bind:goodMainInfo=GetInfoMainPart v-bind:goodBaseInfo=GetInfBasePart></SG_bottom>
     <blankPadding></blankPadding>
   </div>
 </template>
@@ -66,6 +66,18 @@ export default {
     backTopBar, goodPictures, SG_topInfo, SG_comment, SG_bottom, blankPadding
   },
   methods: {
+    likeGetChange(getFlat){
+      if (getFlat==0){
+        this.GetInfoMainPart['likenumber']--;
+      }
+      else if (getFlat==1){
+        this.GetInfoMainPart['likenumber']++;
+      }
+      else {
+        alert("异常错误，请重试")
+      }
+
+    },
     updateData(){
       request({
         url: '/show/goodImgs',
@@ -221,34 +233,36 @@ export default {
   },
   data() {
     return {
-      getGoodId: [
-        {name: 1, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
-        {name: 2, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
-        {name: 3, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
-      ],
-      getChoseInfo: {
-        name: '颜色',
-        fdata: [{id: '3333', key: '黑色'}, {id: '1111', key: '红色'}, {id: '2222', key: '白色'}, {
-          id: '3333',
-          key: '黑色'
-        }, {id: '1111', key: '红色'}, {id: '2222', key: '白色'}],
-        flat: 0
-      },
-      getChoseInfo2: {
-        name: '大小',
-        fdata: [{id: '10001', key: '50k'}, {id: '10002', key: '100k'}, {id: '10003', key: '150k'},],
-        flat: 0
-      },
-      getChoseInfo3: {
-        name: '大小',
-        fdata: [{id: '10004', key: '50G'}, {id: '10005', key: '100G'}, {id: '10006', key: '150G'},],
-        flat: 0
-      },
-      getChoseInfo4: {
-        name: '大小',
-        fdata: [{id: '10007', key: '50k'}, {id: '10008', key: '100k'}, {id: '10009', key: '150k'},],
-        flat: 0
-      },
+      // getGoodId: [
+      //   {name: 1, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
+      //   {name: 2, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
+      //   {name: 3, add: "https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto"},
+      // ],
+      // getChoseInfo: {
+      //   name: '颜色',
+      //   fdata: [{id: '3333', key: '黑色'}, {id: '1111', key: '红色'}, {id: '2222', key: '白色'}, {
+      //     id: '3333',
+      //     key: '黑色'
+      //   }, {id: '1111', key: '红色'}, {id: '2222', key: '白色'}],
+      //   flat: 0
+      // },
+      // getChoseInfo2: {
+      //   name: '大小',
+      //   fdata: [{id: '10001', key: '50k'}, {id: '10002', key: '100k'}, {id: '10003', key: '150k'},],
+      //   flat: 0
+      // },
+      // getChoseInfo3: {
+      //   name: '大小',
+      //   fdata: [{id: '10004', key: '50G'}, {id: '10005', key: '100G'}, {id: '10006', key: '150G'},],
+      //   flat: 0
+      // },
+      // getChoseInfo4: {
+      //   name: '大小',
+      //   fdata: [{id: '10007', key: '50k'}, {id: '10008', key: '100k'}, {id: '10009', key: '150k'},],
+      //   flat: 0
+      // },
+
+
       sg_flatOne: 1,
       sg_flatTwo: 0,
 

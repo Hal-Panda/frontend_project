@@ -3,7 +3,7 @@
   <div class="fa fa-search searchIcon"></div>
   <div class="searchPart">
     <input id="SBP" type="text" v-model="searchContent">
-    <label for="SBP" class="fa fa-search searchIconIn" @click="searchGoods" @keydown.alt.enter="searchGoods" ></label>
+    <label for="SBP" class="fa fa-search searchIconIn" @click="searchGoods" ></label>
   </div>
 </div>
 
@@ -14,7 +14,8 @@ export default {
   name: "searchBar",
   methods:{
     searchGoods(){
-      this.$router.push({name:"showSearchByTitle",params:{searchKey:this.searchContent}})
+      sessionStorage.setItem("RecordSearchKey",this.searchContent)
+      this.$router.push({name:"showSearchByTitle"})
     }
   },
   data(){

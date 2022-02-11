@@ -1,8 +1,8 @@
 <template>
   <div class="showSearchByTitle">
-    <backTopBar>{{ this.$route.params.searchKey }}</backTopBar>
+    <backTopBar>{{ searchKeyWord }}</backTopBar>
 
-    <Goods v-bind:toSearchKey="this.$route.params.searchKey"></Goods>
+    <Goods v-bind:toSearchKey="searchKeyWord"></Goods>
   </div>
 
 </template>
@@ -17,7 +17,15 @@ export default {
   components: {
     Goods, backTopBar, searchBar
   },
-  methods: {}
+  created() {
+    this.searchKeyWord=sessionStorage.getItem("RecordSearchKey");
+  },
+  methods: {},
+  data(){
+    return{
+      searchKeyWord:"",
+    }
+  }
 }
 </script>
 

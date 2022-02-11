@@ -89,6 +89,15 @@ export default {
           this.pageRecord = 2;
           this.loadPoP = false
           setTimeout(this.turnTrue, 600);
+
+          if (res['data'].length<=4){
+            this.loadFont="已经搜寻完毕";
+            this.loadFlat=true;
+            if (res['data'].length<1){
+              this.loadFont="没有搜寻到相关商品";
+              this.loadFlat=true;
+            }
+          }
         }
       }).catch(err => {
         alert(err);
@@ -127,13 +136,14 @@ export default {
         this.pageRecord = 2;
         this.loadPoP = false
         setTimeout(this.turnTrue, 600);
-        if (res['data'].length<1){
-          this.loadFont="没有搜寻到相关商品";
-          this.loadFlat=true;
-        }
+
         if (res['data'].length<=4){
           this.loadFont="已经搜寻完毕";
           this.loadFlat=true;
+          if (res['data'].length<1){
+            this.loadFont="没有搜寻到相关商品";
+            this.loadFlat=true;
+          }
         }
       }
     }).catch(err => {

@@ -9,10 +9,12 @@ const login = () => import("../views/login/loginShow")
 const showSearchByTitle =()=>import("../views/searchGoods/showSearchByTitle")
 const showSearchByClassify =()=>import("../views/searchGoods/showSearchByClassify")
 const SCG_right = () =>import("../views/Categories/SCG_right")
-// import categories from "../views/categories";
-// import shopCart from "../views/shopCart";
-// import user from "../views/user";
-// import login from "../views/login";
+const commitOrder = () =>import("../views/order/commitOrder")
+const payOrder = () => import( "../views/order/payOrder")
+const paySuccess = () =>import("../views/order/paySuccess")
+const myOrder = () =>import("../views/order/myOrder")
+const orderDetail = () =>import("../views/order/orderDetail")
+
 
 const routes = [
 
@@ -60,8 +62,35 @@ const routes = [
   {
     path: '/showSearchByClassify',
     name: 'showSearchByClassify',
-    component: showSearchByClassify
+    component: showSearchByClassify,
   },
+  {
+    path: '/commitOrder',
+    name: 'CommitOrder',
+    component: commitOrder,
+  },
+  {
+    path: '/payOrder',
+    name: 'PayOrder',
+    component:payOrder,
+  },
+  {
+    path: '/paySuccess',
+    name: 'PaySuccess',
+    component: paySuccess,
+  },
+  {
+    path: '/myOrder',
+    name: 'MyOrder',
+    component: myOrder,
+  },
+  {
+    path: '/orderDetail',
+    name: 'OrderDetail',
+    component:orderDetail,
+  },
+
+
   // {
   //   path: "/login",
   //   name: "Login",

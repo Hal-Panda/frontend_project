@@ -3,8 +3,8 @@
     <div
       v-for="(item,index) in getVal" class="SCS_Part">
       <input class="SCB_SoloCheck" type="checkbox" name="shop" @click="chooseGood(index)">
-      <img src="https://img1.baidu.com/it/u=330753258,1076063408&fm=26&fmt=auto" alt="">
-      <div class="SCS_content"><a href="">{{ item['decribe'] }}</a></div>
+      <img @click="toGoodShow(item['goodMainId'])" v-bind:src="item['firImgAddress']" alt="">
+      <div class="SCS_content"><a href="">{{ item['goodName'] }}</a></div>
       <div class="SCS_count">
         <div class="countRecord">
           <button @click="des(index)" :disabled="counts[index]<=1">-</button>
@@ -12,38 +12,94 @@
           <button @click="inc(index)">+</button>
         </div>
       </div>
-      <div class="SCS_money"><span>￥</span>{{ money[index] }}</div>
+      <div class="SHC_cancel" @click="cancelGood(index)">×</div>
+      <div class="SCS_money"><span>￥</span>{{ item['goodPrice'] }}</div>
     </div>
   </div>
   <div class="shopCartBottom">
     <input class="SCB_check" type="checkbox" @click="choseAll" name="sum">
-    <div class="SCB_quanxuan">全选</div>
+    <div class="SCB_quanxuan" >全选</div>
     <div class="SCB_sum">合计:</div>
     <div class="SCB_money"><span>￥</span>{{ sumMoney }}</div>
-    <div class="SCV_go">去结算({{ sumCounys }})</div>
+    <div class="SCV_go" @click="commitOrder">去结算({{ sumCounys }})</div>
   </div>
 </template>
 
 <script>
 import countRecord from "../../components/common/countRecord";
 import {request} from "../../network/request";
+import router from "../../router";
 
 export default {
   components: {
     countRecord
   },
   methods: {
+    cancelGood(index){
+      if (confirm("确定移除该商品？")){
+        request({
+          url: '/shopCart/cancelCartGood',
+          headers: {
+            token: sessionStorage.getItem("token")
+          },
+          params:{
+            goodId:this.getVal[index]['goodId'],
+          }
+        }).then(res => {
+          request({
+            url: '/shopCart/showCart',
+            headers: {
+              token: sessionStorage.getItem("token")
+            },
+          }).then(res => {
+            this.getVal = res['data'];
+            for (let i = 0; i < this.getVal.length; i++) {
+              this.money[i] = this.getVal[i]['goodPrice'];
+              this.flat[i] = false;
+              this.counts[i] = this.getVal[i]['amount']
+              // this.goodIdList[i]=this.getVal[i]['goodId']
+            }
+          }).catch(err => {
+            console.log(err);
+          })
+        }).catch(err => {
+          console.log(err);
+        })
+
+
+      }
+    },
+    commitOrder() {
+      if (this.goodIdList.length<1){
+        alert("请选择商品")
+      }
+      else {
+        router.push({
+          path: "/commitOrder",
+          query: {
+            buyList: this.goodIdList,
+          }
+        });
+      }
+
+    },
+    toGoodShow(id) {
+      this.$router.push('/showGood/' + id)
+    },
     choseAll() {
       if (this.allFlat == false) {
         this.allFlat = true;
         let ones = document.getElementsByClassName('SCB_SoloCheck');
         // input.setAttribute('checked',true)
+        this.goodIdList=[];
         for (let i = 0; i < ones.length; i++) {
+          this.goodIdList.push([this.getVal[i]['goodId'],this.getVal[i]['amount'],this.getVal[i]['firImgAddress']])
           ones[i].checked = true;
           this.flat[i] = true;
         }
         this.reloadPrice();
       } else if (this.allFlat == true) {
+        this.goodIdList=[];
         this.allFlat = false;
         let ones = document.getElementsByClassName('SCB_SoloCheck');
         // input.setAttribute('checked',true)
@@ -54,13 +110,67 @@ export default {
         this.reloadPrice();
       }
     },
-    des(i) {
-      this.counts[i]--;
+    des(index) {
+      if (this.flat[index]){
+        this.goodIdList.some((item,i)=>{
+          if (item[0]==this.getVal[index]['goodId']){
+            this.goodIdList.splice(i,1)
+            return true
+          }
+        })
+        this.getVal[index]['amount']--;
+        this.counts[index]--;
+        this.goodIdList.push([this.getVal[index]['goodId'],this.getVal[index]['amount'],this.getVal[index]['firImgAddress']])
+      }
+      else {
+        this.getVal[index]['amount']--;
+        this.counts[index]--;
+      }
       this.reloadPrice();
+      request({
+        url: '/shopCart/decCount',
+        headers: {
+          token: sessionStorage.getItem("token")
+        },
+        params:{
+          goodId:this.getVal[index]['goodId'],
+        }
+      }).then(res => {
+
+      }).catch(err => {
+        console.log(err);
+      })
     },
-    inc(i) {
-      this.counts[i]++;
+    inc(index) {
+      if (this.flat[index]){
+        this.goodIdList.some((item,i)=>{
+          if (item[0]==this.getVal[index]['goodId']){
+            this.goodIdList.splice(i,1)
+            return true
+          }
+        })
+        this.getVal[index]['amount']++;
+        this.counts[index]++;
+        this.goodIdList.push([this.getVal[index]['goodId'],this.getVal[index]['amount'],this.getVal[index]['firImgAddress']])
+      }
+      else {
+        this.getVal[index]['amount']++;
+        this.counts[index]++;
+      }
       this.reloadPrice();
+      request({
+        url: '/shopCart/incCount',
+        headers: {
+          token: sessionStorage.getItem("token")
+        },
+        params:{
+          goodId:this.getVal[index]['goodId'],
+        }
+      }).then(res => {
+
+      }).catch(err => {
+        console.log(err);
+      })
     },
     reloadPrice() {
       this.sumMoney = 0;
@@ -74,12 +184,31 @@ export default {
         this.sumMoney = Math.round(this.sumMoney * 100) / 100
       }
     },
+    // delete(id) { //根据传入的ID来删除数据
+    //   // 1.根据ID来找到要删除的这一项的索引
+    //   // 2. 找到索引后，调用数组的splice方法
+    //   // 方法一
+    //   this.list.some((item, i) => {
+    //     if (item.id == id) {
+    //       this.list.splice(i, 1)
+    //       // 在数组的some方法中，如果return true，就会立即终止这个数组的后续循环,所以相比较foreach，如果想要终止循环，那么建议使用some
+    //       return true;
+    //     }
+    //   })
+    // },
     chooseGood(index) {
       if (this.flat[index] == false) {
         this.flat[index] = true;
+        this.goodIdList.push([this.getVal[index]['goodId'],this.getVal[index]['amount'],this.getVal[index]['firImgAddress']])
         this.reloadPrice();
         // alert(this.sumMoney)
       } else if (this.flat[index] == true) {
+        this.goodIdList.some((item,i)=>{
+          if (item[0]==this.getVal[index]['goodId']){
+            this.goodIdList.splice(i,1)
+            return true
+          }
+        })
         this.flat[index] = false;
         if (this.allFlat == true) {
           this.allFlat = false;
@@ -92,33 +221,22 @@ export default {
   },
 
   name: "shopCartShow",
-  mounted() {
-    // request({
-    //   url: '/test'
-    // }).then(res => {
-    //   this.getVal = res.data;
-    //   for (let i = 0; i < this.getVal.length; i++) {
-    //     this.money[i] = this.getVal[i]['price'];
-    //     this.flat[i] = false;
-    //     this.counts[i] = this.getVal[i]['goodid']
-    //   }
-    // }).catch(err => {
-    //   alert(err);
-    // })
+  created() {
     request({
-      url: '/test',
-      headers:{
-        token:localStorage.getItem("token")
+      url: '/shopCart/showCart',
+      headers: {
+        token: sessionStorage.getItem("token")
       },
     }).then(res => {
-      this.getVal = res;
+      this.getVal = res['data'];
       for (let i = 0; i < this.getVal.length; i++) {
-        this.money[i] = this.getVal[i]['price'];
+        this.money[i] = this.getVal[i]['goodPrice'];
         this.flat[i] = false;
-        this.counts[i] = this.getVal[i]['goodid']
+        this.counts[i] = this.getVal[i]['amount']
+        // this.goodIdList[i]=this.getVal[i]['goodId']
       }
     }).catch(err => {
-      alert(err);
+      console.log(err);
     })
   },
   data() {
@@ -128,6 +246,7 @@ export default {
       sumMoney: 0.0,
       counts: [],
       sumCounys: 0,
+      goodIdList: [],
       flat: [],
       allFlat: false,
     }
@@ -215,6 +334,15 @@ export default {
       span {
         color: rgba(86, 86, 86, 0.78);
         font-size: @Gao*25vh;
+      }
+    }
+    .SHC_cancel{
+      font-size: @Gao*40vh;
+      position: absolute;
+      top: 2%;
+      right: 2%;
+      &:hover{
+        color: red;
       }
     }
   }
