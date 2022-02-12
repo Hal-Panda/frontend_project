@@ -13,15 +13,18 @@ export default {
     chooseSGT(num){
       // var SG = document.getElementsByClassName("SGT_link");
       // SG[num].setAttribute('style', 'color:#ff6700 !important');
-      this.turnBlack();
-      var SG = document.getElementsByClassName("SGT_link");
-      SG[num].setAttribute('style', 'color:#ff6700 !important');
       if (num==1){
         alert("功能暂未开放")
+        return
       }
       else if (num==2){
         alert("功能暂未开放")
+        return;
       }
+      this.turnBlack();
+      var SG = document.getElementsByClassName("SGT_link");
+      SG[num].setAttribute('style', 'color:#ff6700 !important');
+
     },
     turnBlack(){
       var SG = document.getElementsByClassName("SGT_link");

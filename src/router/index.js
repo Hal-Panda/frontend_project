@@ -14,10 +14,14 @@ const payOrder = () => import( "../views/order/payOrder")
 const paySuccess = () =>import("../views/order/paySuccess")
 const myOrder = () =>import("../views/order/myOrder")
 const orderDetail = () =>import("../views/order/orderDetail")
-
+const userBaseInfo = () =>import("../views/User/userBaseInfo")
+const changePsw = () => import("../views/User/changePsw")
+const accoutChangePsw = () => import("../views/User/changePsw/accoutChangePsw")
+const packetChangePsw = () => import("../views/User/changePsw/packetChangePsw")
+const packetShow = () => import("../views/User/packetShow")
+const setter = () => import("../views/User/setter")
 
 const routes = [
-
   {
     path: '/',
     name: 'Home',
@@ -89,6 +93,37 @@ const routes = [
     name: 'OrderDetail',
     component:orderDetail,
   },
+  {
+    path: '/userBaseInfo',
+    name: 'UserBaseInfo',
+    component:userBaseInfo,
+  },
+  {
+    path: '/changePsw',
+    name: 'ChangePsw',
+    component:changePsw,
+  },
+  {
+    path: '/accoutChangePsw',
+    name: 'AccoutChangePsw',
+    component:accoutChangePsw,
+  },
+  {
+    path: '/packetChangePsw',
+    name: 'PacketChangePsw',
+    component:packetChangePsw,
+  },
+  {
+    path: '/packetShow',
+    name: 'PacketShow',
+    component:packetShow,
+  },
+  {
+    path: '/setter',
+    name: 'Setter',
+    component:setter,
+  },
+
 
 
   // {

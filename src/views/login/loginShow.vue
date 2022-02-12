@@ -111,7 +111,7 @@ export default {
           margin-left: @Kuan*10vw;
           font-size: @Gao*35vh;
           border-radius: @Gao*10vh;
-          border: 2px solid rgba(0, 0, 0, 0.50);
+          border: @Gao*2vh solid rgba(0, 0, 0, 0.50);
           width:@Kuan*330vw ;
           padding-left: @Kuan*10vw;
           background-color: rgba(238, 238, 238, 0.01);
@@ -119,7 +119,7 @@ export default {
           &:focus{
             background-color: white;
             font-size: @Gao*45vh;
-            border: 2px solid #ff6700;
+            border: @Gao*2vh solid #ff6700;
           }
         }
         label{
@@ -132,7 +132,7 @@ export default {
           margin-left: @Kuan*10vw;
           font-size: @Gao*35vh;
           border-radius: @Gao*10vh;
-          border: 2px solid rgba(0, 0, 0, 0.50);
+          border: @Gao*2vh solid rgba(0, 0, 0, 0.50);
           background-color: rgba(238, 238, 238, 0.01);
           width:@Kuan*330vw ;
           padding-left: @Kuan*10vw;
@@ -140,7 +140,7 @@ export default {
           &:focus{
             background-color: white;
             font-size: @Gao*45vh;
-            border: 2px solid #ff6700;
+            border: @Gao*2vh solid #ff6700;
           }
         }
         label{

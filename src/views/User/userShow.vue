@@ -1,29 +1,29 @@
 <template>
   <div class="userShow">
     <div class="US_base">
-      <img v-bind:src="userIcon" alt="">
-      <div class="US_name">
+      <img v-bind:src="userIcon" alt="" @click="iconChange">
+      <div class="US_name" @click="infoChange">
         {{ userName }}
       </div>
-      <div class="US_describe">
+      <div class="US_describe"  @click="infoChange">
         签名：{{userDescribe}}
       </div>
     </div>
     <div class="US_other">
       <div class="USO_list">
-        <router-link class="USOL" to=""><span class="fa fa-user"></span>我的信息</router-link>
+        <router-link class="USOL" to="userBaseInfo"><span class="fa fa-user"></span>我的信息</router-link>
       </div>
       <div class="USO_list">
-        <router-link class="USOL" to=""><span class="fa fa-key"></span>修改密码</router-link>
+        <router-link class="USOL" to="changePsw"><span class="fa fa-key"></span>修改密码</router-link>
       </div>
       <div class="USO_list">
         <router-link class="USOL" to="myOrder"><span class="fa fa-align-justify"></span>我的订单</router-link>
       </div>
       <div class="USO_list">
-        <router-link class="USOL" to=""><span class="fa fa-info-circle"></span>帮助</router-link>
+        <router-link class="USOL" to="packetShow"><span class="fa fa-credit-card"></span>钱包</router-link>
       </div>
       <div class="USO_list">
-        <router-link class="USOL" to=""><span class="fa fa-cog"></span>设置</router-link>
+        <router-link class="USOL" to="setter"><span class="fa fa-cog"></span>设置</router-link>
       </div>
     </div>
   </div>
@@ -34,6 +34,14 @@ import {request} from "../../network/request";
 
 export default {
   name: "userShow",
+  methods:{
+    infoChange(){
+      this.$router.push("userBaseInfo")
+    },
+    iconChange(){
+      alert("暂不支持修改头像")
+    }
+  },
   created() {
     request({
       url: '/cuser/getUserInfo',
