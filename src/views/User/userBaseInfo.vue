@@ -39,13 +39,13 @@
                                                                              v-model="changeSex">女
       </div>
       <div class="UBI_date">
-        出生日期：<input type="date" v-model="changeBir">
+        出生日期：<input type="date" v-model="dataRecord" >
       </div>
       <div class="UBI_other">
         签名：&nbsp;&nbsp;&nbsp;&nbsp;<textarea v-model="changeDescreibe"></textarea>
       </div>
       <div class="UBI_botton2">
-        <span @click="cancelChangeInfo">取消</span><span @click="change">确认修改</span>
+        <span @click="cancelChangeInfo">取消</span><span  @click="change">确认修改</span>
       </div>
     </div>
 
@@ -60,9 +60,11 @@ export default {
   name: "userBaseInfo",
   components: {backTopBar},
   methods: {
+    changeDate(){
+      console.log("ok")
+    },
     change() {
       if (confirm("确定修改？")) {
-        let data=new Date(this.changeBir)
         request({
           method: "post",
           url: '/cuser/changeMainInfo',
@@ -73,7 +75,7 @@ export default {
             realName: this.changeName,
             userName: this.changeUserName,
             sex: this.changeSex,
-            birthday: data,
+            birthday: this.dataRecord,
             describe: this.changeDescreibe
           }
         }).then(res => {
@@ -137,9 +139,11 @@ export default {
       this.userInfo = res['data'];
       this.changeUserName = this.userInfo['username'];
       this.changeName = this.userInfo['userrealname'];
-      this.changeBir = this.userInfo['birthday'];
+      this.changeBir =this.userInfo['birthday'];
       this.changeSex = this.userInfo['sex'];
       this.changeDescreibe = this.userInfo['userdescribe'];
+
+      this.dataRecord=this.changeDateForm(this.changeBir);
     }).catch(err => {
       console.log(err);
     })
@@ -152,6 +156,7 @@ export default {
       changeBir: "",
       changeSex: "",
       changeDescreibe: "",
+      dataRecord:"",
 
     }
   }
@@ -184,6 +189,7 @@ export default {
         margin-top: @Gao*20vh;
         box-shadow: @Kuan*2vw @Kuan*2vw @Kuan*15vw rgba(187, 184, 184, 0.88);
         border-radius: @Gao*10vh;
+        width: 50%;
       }
     }
   }

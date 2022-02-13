@@ -34,6 +34,7 @@
           <div v-for="item in passKey">{{ item }}</div>
         </div>
       </label>
+      <div class="packetPswMsg">初始密码为账号密码后六位</div>
     </div>
   </div>
 
@@ -235,6 +236,13 @@ export default {
         text-align: center;
         margin-right: @Kuan*5vw;
       }
+    }
+    .packetPswMsg{
+      display: flex;
+      justify-content: center;
+      color: gray;
+      font-size: @Gao*30vh;
+      margin-top: @Gao*20vh;
     }
   }
 }

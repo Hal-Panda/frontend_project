@@ -12,6 +12,7 @@
     <div class="UBI_botton">
       <span @click="changeInfo">确认修改</span>
     </div>
+    <div class="packetPswMsg">初始密码为账号密码后六位</div>
   </div>
 </template>
 
@@ -21,8 +22,14 @@ import {request} from "../../../network/request";
 export default {
   name: "packetChangeShow",
   methods: {
+    killBlank(str){
+      return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    },
     changeInfo() {
       if (confirm("确定修改？")) {
+        this.newPsw=this.killBlank(this.newPsw);
+        this.metaPsw=this.killBlank(this.metaPsw);
+        this.againPsw=this.killBlank(this.againPsw);
         if (this.newPsw != this.againPsw) {
           alert("新密码两次输入不一致")
           return
@@ -117,6 +124,14 @@ export default {
       line-height: @Gao*60vh;
       font-size: @Gao*40vh;
     }
+  }
+  .packetPswMsg{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    color: gray;
+    font-size: @Gao*30vh;
+    bottom: 0;
   }
 }
 

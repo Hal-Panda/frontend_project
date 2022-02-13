@@ -20,6 +20,9 @@ const accoutChangePsw = () => import("../views/User/changePsw/accoutChangePsw")
 const packetChangePsw = () => import("../views/User/changePsw/packetChangePsw")
 const packetShow = () => import("../views/User/packetShow")
 const setter = () => import("../views/User/setter")
+const registerBase = () => import("../views/register/registerBase")
+const registerUserInfo = () => import("../views/register/registerUserInfo")
+const registerPacketInfo = () => import("../views/register/registerPacketInfo")
 
 const routes = [
   {
@@ -123,7 +126,21 @@ const routes = [
     name: 'Setter',
     component:setter,
   },
-
+  {
+    path: '/registerBase',
+    name: 'RegisterBase',
+    component:registerBase,
+  },
+  {
+    path: '/registerUserInfo',
+    name: 'RegisterUserInfo',
+    component:registerUserInfo,
+  },
+  {
+    path: '/registerPacketInfo',
+    name: 'RegisterPacketInfo',
+    component:registerPacketInfo,
+  },
 
 
   // {

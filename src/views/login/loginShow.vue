@@ -12,6 +12,7 @@
         <div class="LSP_login">
           <label class="LSP_label" @click="login">登录</label>
         </div>
+        <div class="LSP_toRegister" @click="toRegister">前往注册</div>
       </div>
     </div>
   </div>
@@ -27,6 +28,9 @@ export default {
     backTopBar
   },
   methods:{
+    toRegister(){
+      this.$router.push("registerBase");
+    },
     killBlank(str){
         return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     },
@@ -163,6 +167,14 @@ export default {
             //color: #ff6700;
           }
         }
+      }
+      .LSP_toRegister{
+        text-decoration: underline;
+        font-size: @Gao*20vh;
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+        color: black;
       }
     }
   }
